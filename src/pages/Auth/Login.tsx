@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import AuthLayout from "@/layout/AuthLayout";
 import { Link } from "react-router-dom";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { showToast } from "@/lib/Toast";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -36,9 +37,17 @@ const Login = () => {
   async function onSubmit(values: FormScehamaType) {
     await loginUser(values)
       .unwrap()
-      .then((data) => console.log(data))
+      .then((data) =>
+        showToast(data?.success || "", {
+          type: "success",
+        })
+      )
       .catch((err: AuthPayloadError) => {
-        console.log(err);
+        err?.errors?.map((el) => {
+          showToast(el.message, {
+            type: "error",
+          });
+        });
       });
   }
   return (
