@@ -1,31 +1,38 @@
-import { ToastContainer, ToastOptions, toast } from "react-toastify";
-const Toast = () => {
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./toastStyle.css";
+import { toast, ToastOptions } from "react-toastify";
+
+export const Toast = () => {
   return (
     <ToastContainer
-      bodyClassName="custom-text"
-      position="top-center"
-      theme="dark"
-      rtl={false}
+      position="top-left"
       autoClose={3000}
-      pauseOnHover
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      theme="dark"
     />
   );
 };
 
-export const showToast = (message: string, options?: ToastOptions) => {
+export const showToast = (message: string, options: ToastOptions) => {
   toast(message, {
     position: "bottom-right",
-    autoClose: 3000,
+    autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     draggable: true,
     progress: undefined,
+    theme: "light",
+    transition: Bounce,
     style: {
-      background: "#EDEDED",
-      color: "#050B22",
+      background: "#000",
+      color: "#fff",
     },
     ...options,
   });
 };
-
-export default Toast;

@@ -18,7 +18,16 @@ export const authApi = rootApi.injectEndpoints({
                 }
             },
         }),
+        signup: builder.mutation<SignupPayloadSuccess, SignupPayload>({
+
+            query: (data) => ({
+
+                url: `/register`,
+                method: 'POST',
+                body: data,
+            })
+        })
     }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useSignupMutation } = authApi;

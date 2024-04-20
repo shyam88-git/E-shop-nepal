@@ -13,7 +13,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import AuthLayout from "@/layout/AuthLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { showToast } from "@/lib/Toast";
 
@@ -22,11 +22,12 @@ const formSchema = z.object({
   password: z.string().min(8),
 });
 
-type FormScehamaType = z.infer<typeof formSchema>;
+type FormSchemaType = z.infer<typeof formSchema>;
 
 const Login = () => {
   const [loginUser] = useLoginMutation();
-  const form = useForm<FormScehamaType>({
+  const navigate = useNavigate();
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -34,25 +35,27 @@ const Login = () => {
     },
   });
 
-  async function onSubmit(values: FormScehamaType) {
+  async function onSubmit(values: FormSchemaType) {
     await loginUser(values)
       .unwrap()
-      .then((data) =>
-        showToast(data?.success || "", {
+      .then(() => {
+        showToast("Login Successfully" || "", {
           type: "success",
-        })
-      )
+        });
+        navigate("/dashboard");
+      })
       .catch((err: AuthPayloadError) => {
-        err?.errors?.map((el) => {
+        err?.errors.map((el) => {
           showToast(el.message, {
             type: "error",
           });
         });
       });
   }
+
   return (
-    <div className="flex  justify-center  items-center h-auto  ">
-      <div className=" my-16 px-16 bg-blue-950">
+    <div className="flex justify-center items-center h-auto">
+      <div className="my-16 px-16 bg-blue-950">
         <AuthLayout title="Login">
           <span className="mt-3">
             <IoMdLogIn size={30} color="green" />
@@ -106,18 +109,19 @@ const Login = () => {
                 />
               </div>
               <div className="mt-4">
-                <Button className="text-white px-12 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2">
+                <Button
+                  type="submit"
+                  className="text-white px-12 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm py-2.5 text-center me-2 mb-2"
+                >
                   Login
                 </Button>
               </div>
             </form>
           </Form>
           <p className="text-slate-400">
-            Dont'Have an Account ? <Link to="/sign-up">Register</Link>{" "}
+            Don't Have an Account ? <Link to="/sign-up">Register</Link>
           </p>
         </div>
-
-        <div></div>
       </div>
     </div>
   );

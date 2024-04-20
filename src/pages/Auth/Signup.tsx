@@ -14,6 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import AuthLayout from "@/layout/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
+import { useSignupMutation } from "@/redux/features/auth/authApi";
+import { showToast } from "@/lib/Toast";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -26,6 +28,7 @@ const formSchema = z.object({
 type FormSceham = z.infer<typeof formSchema>;
 
 const Signup = () => {
+  const [signupUser] = useSignupMutation();
   const form = useForm<FormSceham>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,6 +40,22 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
+
+  const onSubmit = async (values: FormSceham) => {
+    await signupUser(values)
+      .unwrap()
+      .then(() => {
+        showToast("Signup User Successfully", {
+          type: "success",
+        });
+        navigate("/login");
+      })
+      .catch(() => {
+        showToast("Error in login", {
+          type: "error",
+        });
+      });
+  };
   return (
     <div className="flex  justify-center  items-center h-auto  ">
       <div className=" my-16 px-20 bg-blue-950">
@@ -47,7 +66,7 @@ const Signup = () => {
         </AuthLayout>
         <div className="grid gap-4 justify-center mb-8 md:grid-cols-1">
           <Form {...form}>
-            <form>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <div>
                 <FormField
                   control={form.control}
