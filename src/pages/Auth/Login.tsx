@@ -14,22 +14,33 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import AuthLayout from "@/layout/AuthLayout";
 import { Link } from "react-router-dom";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
 
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
-type FormSceham = z.infer<typeof formSchema>;
+type FormScehamaType = z.infer<typeof formSchema>;
 
 const Login = () => {
-  const form = useForm<FormSceham>({
+  const [loginUser] = useLoginMutation();
+  const form = useForm<FormScehamaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
+
+  async function onSubmit(values: FormScehamaType) {
+    await loginUser(values)
+      .unwrap()
+      .then((data) => console.log(data))
+      .catch((err: AuthPayloadError) => {
+        console.log(err);
+      });
+  }
   return (
     <div className="flex  justify-center  items-center h-auto  ">
       <div className=" my-16 px-16 bg-blue-950">
@@ -40,7 +51,7 @@ const Login = () => {
         </AuthLayout>
         <div className="grid gap-4 justify-center mb-8 md:grid-cols-1">
           <Form {...form}>
-            <form>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <div>
                 <FormField
                   control={form.control}

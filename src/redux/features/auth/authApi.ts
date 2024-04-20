@@ -1,8 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { rootApi } from "@/redux/root.api.";
+import { initAuthUser, logout } from "./authSlice";
 
-
-const store = configureStore({
-
-    reducer:
+export const authApi = rootApi.injectEndpoints({
+    endpoints: (builder) => ({
+        login: builder.mutation({
+            query: (body: { email: string; password: string }) => ({
+                url: "/login/",
+                method: "POST",
+                body,
+            }),
+            async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(initAuthUser(data));
+                } catch (err) {
+                    // Handle error
+                }
+            },
+        }),
+    }),
 });
 
+export const { useLoginMutation } = authApi;
