@@ -12,6 +12,8 @@ import { IoMdLogIn } from "react-icons/io";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import AuthLayout from "@/layout/AuthLayout";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -31,12 +33,11 @@ const Login = () => {
   return (
     <div className="flex  justify-center  items-center h-auto  ">
       <div className=" my-16 px-16 bg-blue-950">
-        <div className=" flex  border-b-2 border-b-white mb-10 space-x-5">
-          <span className="mt-1 py-2">
+        <AuthLayout title="Login">
+          <span className="mt-3">
             <IoMdLogIn size={30} color="green" />
           </span>
-          <p className="text-2xl font-medium py-2 text-green-400 ">Login</p>
-        </div>
+        </AuthLayout>
         <div className="grid gap-4 justify-center mb-8 md:grid-cols-1">
           <Form {...form}>
             <form>
@@ -91,7 +92,9 @@ const Login = () => {
               </div>
             </form>
           </Form>
-          <p className="text-slate-400">Dont'Have an Account ? Register</p>
+          <p className="text-slate-400">
+            Dont'Have an Account ? <Link to="/sign-up">Register</Link>{" "}
+          </p>
         </div>
 
         <div></div>
