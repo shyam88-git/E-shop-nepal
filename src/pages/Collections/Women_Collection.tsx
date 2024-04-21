@@ -38,7 +38,7 @@ const Women_Collection = () => {
             <div className="flex justify-center gap-4 mb-2">
               <Button className="bg-blue-900">Add To Card</Button>
               <p className="text-xl font-bold mt-2 text-pink-600">
-                {item?.price}
+                Rs. {item?.price}
               </p>
             </div>
           </div>
