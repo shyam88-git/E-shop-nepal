@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { TbPointFilled } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 const Sidenavbar = () => {
   const [isSubmMenuOpen, setIsSubMenuOpen] = useState<boolean>(true);
@@ -92,8 +93,8 @@ const Sidenavbar = () => {
               {isSubmMenuOpen === false && (
                 <ul id="dropdown-example" className=" py-2 space-y-2  ">
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      to="/dashboard/men"
                       className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       <span className="flex justify-center items-center">
@@ -101,11 +102,11 @@ const Sidenavbar = () => {
                         <TbPointFilled size={20} />
                         Mens's Wear
                       </span>
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      to="/dashboard/women"
                       className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       <span className="flex justify-center items-center">
@@ -113,11 +114,11 @@ const Sidenavbar = () => {
                         <TbPointFilled size={20} />
                         Woman's Wear
                       </span>
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      to="/dashboard/kid"
                       className="flex items-center w-full p-2  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       <span className="flex justify-center items-center">
@@ -125,7 +126,7 @@ const Sidenavbar = () => {
                         <TbPointFilled size={20} />
                         Kid's Wear
                       </span>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               )}
