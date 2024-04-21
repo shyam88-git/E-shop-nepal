@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import men1 from "../../../public/images/men1.jpg";
-import men2 from "../../../public/images/men2.jpeg";
-import men3 from "../../../public/images/men4.jpeg";
-import men4 from "../../../public/images/men5.jpeg";
+import men1 from "/images/men1.jpg";
+import men2 from "/images/men2.jpeg";
+import men3 from "/images/men4.jpeg";
+import men4 from "/images/men5.jpeg";
 import Headernavbar from "../Navbar/Headernavbar";
 
 const images = [men1, men2, men3, men4];

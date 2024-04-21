@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import women1 from "../../../public/images/woman.jpeg";
-import women2 from "../../../public/images/woman2.jpeg";
-import women3 from "../../../public/images/woman3.jpeg";
-import women4 from "../../../public/images/woman4.jpeg";
-import women5 from "../../../public/images/women5.webp";
+import women1 from "/images/woman.jpeg";
+import women2 from "/images/woman2.jpeg";
+import women3 from "/images/woman3.jpeg";
+import women4 from "/images/woman4.jpeg";
+import women5 from "/images/women5.webp";
 
 import Headernavbar from "../Navbar/Headernavbar";
 
