@@ -1,3 +1,4 @@
+import Headernavbar from "../Navbar/Headernavbar";
 import Sidenavbar from "../Navbar/Sidenavbar";
 import HeaderDashboard from "./HeaderDashboard";
 import {
@@ -59,71 +60,74 @@ const Dashboard = () => {
     },
   ];
   return (
-    <div>
-      {/* Sidebar */}
-      <Sidenavbar />
+    <>
+      <Headernavbar />
+      <div>
+        {/* Sidebar */}
+        <Sidenavbar />
 
-      {/* Main Content */}
-      <div className="p-4 sm:ml-64">
-        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-          <HeaderDashboard />
+        {/* Main Content */}
+        <div className="p-4 sm:ml-64">
+          <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+            <HeaderDashboard />
 
-          <div className="grid grid-cols-2 mt-32 gap-4 mb-4">
-            <div className="flex items-center justify-center rounded bg-gray-50 h-72 dark:bg-gray-800">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  width={500}
-                  height={300}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="pv" fill="#eb1a1a" />
-                  <Bar dataKey="uv" fill="#1919ec" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="flex items-center justify-center rounded bg-gray-50 h-72 dark:bg-gray-800">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="pv"
-                    stroke="#eb1a1a"
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line type="monotone" dataKey="uv" stroke="#1919ec" />
-                </LineChart>
-              </ResponsiveContainer>
+            <div className="grid grid-cols-2 mt-32 gap-4 mb-4">
+              <div className="flex items-center justify-center rounded bg-gray-50 h-72 dark:bg-gray-800">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="pv" fill="#eb1a1a" />
+                    <Bar dataKey="uv" fill="#1919ec" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex items-center justify-center rounded bg-gray-50 h-72 dark:bg-gray-800">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="pv"
+                      stroke="#eb1a1a"
+                      activeDot={{ r: 8 }}
+                    />
+                    <Line type="monotone" dataKey="uv" stroke="#1919ec" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
