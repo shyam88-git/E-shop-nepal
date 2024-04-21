@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Headernavbar from "../Navbar/Headernavbar";
 import { useGetKidsCollectionQuery } from "@/redux/features/products/productApi";
 import BounceLoader from "@/Loader/BoundeLoader";
+import { GrView } from "react-icons/gr";
 const Kid_Collection = () => {
   const { data: productData, isLoading } = useGetKidsCollectionQuery();
   return (
@@ -33,13 +34,18 @@ const Kid_Collection = () => {
               <p className="text-sm text-gray-600">
                 Simple Yet Beautiful Card Design with TaiwlindCss. ...
               </p>
+              <p className="text-xl font-bold mt-2 text-pink-600">
+                Rs.{item?.price}
+              </p>
             </div>
 
             <div className="flex justify-center gap-4 mb-2">
               <Button className="bg-blue-900">Add To Card</Button>
-              <p className="text-xl font-bold mt-2 text-pink-600">
-                Rs.{item?.price}
-              </p>
+
+              <i className="w-12  rounded-sm cursor-pointer py-1 mt-1  px-3 h-8 bg-green-500">
+                {" "}
+                <GrView size={24} color="white" />
+              </i>
             </div>
           </div>
         ))}

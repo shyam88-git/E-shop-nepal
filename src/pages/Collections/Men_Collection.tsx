@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Headernavbar from "../Navbar/Headernavbar";
 import { useGetMenCollectionQuery } from "@/redux/features/products/productApi";
 import BounceLoader from "@/Loader/BoundeLoader";
+import { GrView } from "react-icons/gr";
 
 const Men_Collection = () => {
   const { data: productData, isLoading } = useGetMenCollectionQuery();
@@ -35,13 +36,19 @@ const Men_Collection = () => {
               <p className="text-sm text-gray-600">
                 Lorem 34 for all the collection of men's
               </p>
+              <p className="text-xl font-bold mt-2 text-pink-600">
+                Rs.{item?.price}
+              </p>
             </div>
 
             <div className="flex mb-3 justify-center gap-4 mt-2">
               <Button className="bg-blue-900">Add To Card</Button>
-              <p className="text-xl font-bold mt-2 text-pink-600">
-                Rs.{item?.price}
-              </p>
+              {/* <Button className="bg-blue-900 text-white w-11 rounded-2xl h-10 hover:bg-green-300"> */}
+              <i className="w-12  rounded-sm cursor-pointer py-1 mt-1  px-3 h-8 bg-green-500">
+                {" "}
+                <GrView size={24} color="white" />
+              </i>
+              {/* </Button> */}
             </div>
           </div>
         ))}
