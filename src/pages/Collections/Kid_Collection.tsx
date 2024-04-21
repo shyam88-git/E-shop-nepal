@@ -20,7 +20,7 @@ const Kid_Collection = () => {
             className="w-full mt-8 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
           >
             <img
-              className="h-44 w-full object-cover rounded-xl"
+              className="h-52 w-full object-cover rounded-xl"
               alt=""
               src={item}
             />
