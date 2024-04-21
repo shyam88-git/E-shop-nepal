@@ -18,9 +18,20 @@ export const productApi = rootApi.injectEndpoints({
             providesTags: ['product']
 
 
+        }),
+
+        getKidsCollection: builder.query<GetAllProducts, void>({
+
+            query: () => ({
+
+                url: `products/kids`,
+                method: 'Get',
+
+            }),
+            providesTags: ['product']
         })
     })
 })
 
 
-export const { useGetMenCollectionQuery, useGetWomenCollectionQuery } = productApi;
+export const { useGetMenCollectionQuery, useGetWomenCollectionQuery, useGetKidsCollectionQuery } = productApi;
