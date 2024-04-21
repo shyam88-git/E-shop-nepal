@@ -5,7 +5,7 @@ interface GetAllProducts {
 
 interface Products {
 
-    id: string | number,
+    _id: string | number,
     name: string,
     brand: string,
     price: number,

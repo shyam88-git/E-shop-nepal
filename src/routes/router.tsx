@@ -8,6 +8,7 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 import Men_Collection from "@/pages/Collections/Men_Collection";
 import Kid_Collection from "@/pages/Collections/Kid_Collection";
 import Women_Collection from "@/pages/Collections/Women_Collection";
+import Profile from "@/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "dashboard/men",
     element: <Men_Collection />,
+  },
+  {
+    path: "dashboard/men/:id",
+    element: <Profile />,
   },
   {
     path: "dashboard/kid",
