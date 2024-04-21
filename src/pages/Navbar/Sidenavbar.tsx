@@ -1,4 +1,15 @@
+import { useState } from "react";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { TbPointFilled } from "react-icons/tb";
+
 const Sidenavbar = () => {
+  const [isSubmMenuOpen, setIsSubMenuOpen] = useState<boolean>(true);
+
+  const toggleSubMenu = () => {
+    setIsSubMenuOpen((prevState) => !prevState);
+    console.log(isSubmMenuOpen);
+  };
+
   return (
     <div>
       <button
@@ -54,6 +65,7 @@ const Sidenavbar = () => {
                 className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
+                onClick={toggleSubMenu}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
@@ -67,48 +79,56 @@ const Sidenavbar = () => {
                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
                   Category
                 </span>
-                <svg
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
+                <span className="text-sm rotate-180" id="arrow">
+                  <i>
+                    {!isSubmMenuOpen ? (
+                      <MdKeyboardArrowDown size={30} />
+                    ) : (
+                      <MdKeyboardArrowUp size={30} />
+                    )}
+                  </i>
+                </span>
               </button>
-              <ul id="dropdown-example" className="hidden py-2 space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >
-                    Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >
-                    Billing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >
-                    Invoice
-                  </a>
-                </li>
-              </ul>
+              {isSubmMenuOpen === false && (
+                <ul id="dropdown-example" className=" py-2 space-y-2  ">
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      <span className="flex justify-center items-center">
+                        {" "}
+                        <TbPointFilled size={20} />
+                        Mens's Wear
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      <span className="flex justify-center items-center">
+                        {" "}
+                        <TbPointFilled size={20} />
+                        Woman's Wear
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      <span className="flex justify-center items-center">
+                        {" "}
+                        <TbPointFilled size={20} />
+                        Kid's Wear
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              )}
             </li>
             <li>
               <a
