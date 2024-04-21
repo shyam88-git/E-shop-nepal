@@ -12,7 +12,7 @@ const Sidenavbar = () => {
   };
 
   return (
-    <div>
+    <div className="mt-24">
       <button
         data-drawer-target="default-sidebar"
         data-drawer-toggle="default-sidebar"
@@ -37,11 +37,11 @@ const Sidenavbar = () => {
       </button>
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40  w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-8 left-0 z-40  w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-slate-500 dark:bg-gray-800">
-          <ul className="space-y-2 mt-14 font-medium">
+          <ul className="space-y-2 mt-12 font-medium">
             <li>
               <a
                 href="#"
