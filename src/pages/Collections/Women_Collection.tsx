@@ -3,8 +3,10 @@ import Headernavbar from "../Navbar/Headernavbar";
 import { useGetWomenCollectionQuery } from "@/redux/features/products/productApi";
 import BounceLoader from "@/Loader/BoundeLoader";
 import { GrView } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 const Women_Collection = () => {
   const { data: productData, isLoading } = useGetWomenCollectionQuery();
+  const navigate = useNavigate();
   return (
     <>
       <Headernavbar />
@@ -41,7 +43,10 @@ const Women_Collection = () => {
 
             <div className="flex justify-center gap-4 mb-2">
               <Button className="bg-blue-900">Add To Card</Button>
-              <i className="w-12  rounded-sm cursor-pointer py-1 mt-1  px-3 h-8 bg-green-500">
+              <i
+                onClick={() => navigate(`${item?._id}`)}
+                className="w-12  rounded-sm cursor-pointer py-1 mt-1  px-3 h-8 bg-green-500"
+              >
                 {" "}
                 <GrView size={24} color="white" />
               </i>

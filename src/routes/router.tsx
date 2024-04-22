@@ -34,6 +34,14 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
+    path: "dashboard/women/:id",
+    element: <Profile />,
+  },
+  {
+    path: "dashboard/kid/:id",
+    element: <Profile />,
+  },
+  {
     path: "dashboard/kid",
     element: <Kid_Collection />,
   },
