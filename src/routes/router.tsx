@@ -11,6 +11,7 @@ import Profile from "@/Profile/Profile";
 import UserProfile from "@/Profile/UserProfile";
 import Login from "@/pages/Auth/Login";
 import UpdateAddress from "@/Profile/UpdateAddress";
+import MainWrapper from "@/pages/Navbar/MainWrapper";
 
 const router = createBrowserRouter([
   {

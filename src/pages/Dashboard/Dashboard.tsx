@@ -1,4 +1,5 @@
 import Headernavbar from "../Navbar/Headernavbar";
+import MainWrapper from "../Navbar/MainWrapper";
 import Sidenavbar from "../Navbar/Sidenavbar";
 import HeaderDashboard from "./HeaderDashboard";
 import {
@@ -61,13 +62,8 @@ const Dashboard = () => {
   ];
   return (
     <>
-      <Headernavbar />
-      <div>
-        {/* Sidebar */}
-        <Sidenavbar />
-
-        {/* Main Content */}
-        <div className="p-4 sm:ml-64">
+      <MainWrapper>
+        <div className="p-4 sm:ml-64  mt-24">
           <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <HeaderDashboard />
 
@@ -126,7 +122,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </div>
+      </MainWrapper>
     </>
   );
 };
