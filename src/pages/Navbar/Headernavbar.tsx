@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
@@ -32,15 +32,15 @@ const Headernavbar = () => {
               Back
             </Button>
             <Button
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/dashboard/user-profile")}
               className="bg-slate-400 py-6  hover:bg-white hover:text-black"
             >
               <span className="flex justify-center items-center gap-3 ">
                 <i
-                  onClick={() => {
-                    setShowNavMenu((prevState) => !prevState);
-                    setShowProfileMenu(false);
-                  }}
+                // onClick={() => {
+                //   setShowNavMenu((prevState) => !prevState);
+                //   setShowProfileMenu(false);
+                // }}
                 >
                   <CgProfile size={30} color="green" />
                 </i>

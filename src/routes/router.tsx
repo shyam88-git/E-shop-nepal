@@ -10,6 +10,7 @@ import Women_Collection from "@/pages/Collections/Women_Collection";
 import Profile from "@/Profile/Profile";
 import UserProfile from "@/Profile/UserProfile";
 import Login from "@/pages/Auth/Login";
+import UpdateAddress from "@/Profile/UpdateAddress";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
+    path: "dashboard/user-profile",
+    element: <UserProfile />,
+  },
+  {
+    path: "user-profile/update-address",
+    element: <UpdateAddress />,
+  },
+  {
     path: "dashboard/kid",
     element: <Kid_Collection />,
   },
@@ -60,7 +69,7 @@ const router = createBrowserRouter([
 
   {
     path: "/sign-up",
-    element: <UserProfile />,
+    element: <Signup />,
   },
 ]);
 

@@ -4,11 +4,12 @@ import Headernavbar from "@/pages/Navbar/Headernavbar";
 import { useGetUserInfoQuery } from "@/redux/features/user/userApi";
 import { useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const { data: userData, isFetching } = useGetUserInfoQuery();
   const [userProfile, setUserProfile] = useState("");
-  console.log("userData", userData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUserProfile(userProfile);
@@ -100,7 +101,10 @@ const UserProfile = () => {
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
-                    <Button className="w-12 h-8 rounded-lg cursor-pointer bg-blue-900">
+                    <Button
+                      onClick={() => navigate(`/user-profile/update-address`)}
+                      className="w-12 h-8 rounded-lg cursor-pointer bg-blue-900"
+                    >
                       <MdEdit size={32} />
                     </Button>
                   </a>
