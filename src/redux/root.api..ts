@@ -10,20 +10,18 @@ export const rootApi = createApi({
 
         baseUrl: BASE_API_URL,
         prepareHeaders: (headers) => {
-
             const token = getAuthToken();
             if (token) {
-
-                headers.set("Authorization", `Bearer ${token}`);
+                headers.set("x-auth-token", token);
             }
-
             return headers;
         }
     }),
 
     endpoints: () => ({}),
     tagTypes: [
-        'product'
+        'product',
+        'users'
 
 
     ],

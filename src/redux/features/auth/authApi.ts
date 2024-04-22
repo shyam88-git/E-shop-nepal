@@ -12,9 +12,13 @@ export const authApi = rootApi.injectEndpoints({
             async onQueryStarted(_args, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
+                    console.log("data", data);
                     dispatch(initAuthUser(data));
                 } catch (err) {
-                    // Handle error
+                    dispatch(logout());
+
+
+
                 }
             },
         }),
@@ -26,7 +30,10 @@ export const authApi = rootApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             })
-        })
+        }),
+
+
+
     }),
 });
 

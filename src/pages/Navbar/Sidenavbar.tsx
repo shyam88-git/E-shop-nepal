@@ -1,14 +1,23 @@
+import { logout } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/store";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { TbPointFilled } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidenavbar = () => {
   const [isSubmMenuOpen, setIsSubMenuOpen] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const toggleSubMenu = () => {
     setIsSubMenuOpen((prevState) => !prevState);
     console.log(isSubmMenuOpen);
+  };
+
+  const logoutUser = () => {
+    dispatch(logout());
+    navigate("/login");
   };
 
   return (
@@ -205,7 +214,12 @@ const Sidenavbar = () => {
                     d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
                   />
                 </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap">Logout</span>
+                <span
+                  onClick={logoutUser}
+                  className="flex-1 ms-3 whitespace-nowrap"
+                >
+                  Logout
+                </span>
               </a>
             </li>
           </ul>
