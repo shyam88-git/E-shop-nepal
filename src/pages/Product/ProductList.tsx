@@ -5,15 +5,20 @@ import { FaRegEye } from "react-icons/fa";
 
 import MainWrapper from "../Navbar/MainWrapper";
 import BounceLoader from "@/Loader/BoundeLoader";
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const { data: AllProduct, isFetching } = useGetAllProductQuery();
-  console.log("data is", AllProduct);
+  const navigate = useNavigate();
+
   return (
     <MainWrapper>
       <div className="  ml-72 mr-16 mt-24 overflow-x-auto">
         <div className="flex justify-start items-start mb-4 md:mb-4">
-          <Button className="bg-blue-900 w-full md:w-auto rounded-md">
+          <Button
+            onClick={() => navigate("add-product")}
+            className="bg-blue-900 w-full md:w-auto rounded-md"
+          >
             Add Product
           </Button>
         </div>
@@ -71,14 +76,14 @@ const ProductList = () => {
 
                 <td className="px-6 py-4">{product?.category}</td>
                 <td className="py-4 flex justify-center gap-1 items-center">
-                  <Button className="w-12 h-9 bg-blue-900">
+                  <Button className="w-12 h-9 cursor-pointer bg-blue-900 hover:bg-blue-800">
                     <MdEdit size={18} />
                   </Button>
-                  <Button className="w-12 h-9 bg-green-500">
-                    <FaRegEye size={18} />
+                  <Button className="w-11 cursor-pointer h-9 bg-green-500 hover:bg-green-400">
+                    <FaRegEye size={20} />
                   </Button>
-                  <Button className="w-11 h-9 bg-red-600">
-                    <MdDelete size={18} />
+                  <Button className="w-11 h-9 cursor-pointer bg-red-600 hover:bg-red-500">
+                    <MdDelete size={20} />
                   </Button>
                 </td>
               </tr>

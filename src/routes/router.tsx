@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "dashboard/product/add-product",
+    path: "dashboard/product/product-list/add-product",
     element: <UploadProduct />,
   },
   {

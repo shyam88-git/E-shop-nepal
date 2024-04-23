@@ -61,7 +61,7 @@ const UploadProduct = () => {
     try {
       await uploadProduct(values).unwrap();
       showToast("Product uploaded successfully", { type: "success" });
-      navigate("/dashboard");
+      navigate("/dashboard/product/product-list");
     } catch (error) {
       showToast("Error while uploading product", { type: "error" });
       console.error(error);
