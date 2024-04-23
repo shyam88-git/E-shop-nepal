@@ -192,7 +192,7 @@ const Sidenavbar = () => {
                   </li>
                   <li>
                     <Link
-                      to="/dashboard/women"
+                      to="/dashboard/product/product-list"
                       className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       <span className="flex justify-center items-center">

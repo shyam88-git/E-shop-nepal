@@ -12,6 +12,7 @@ import UserProfile from "@/Profile/UserProfile";
 import Login from "@/pages/Auth/Login";
 import UpdateAddress from "@/Profile/UpdateAddress";
 import UploadProduct from "@/pages/Product/UploadProduct";
+import ProductList from "@/pages/Product/ProductList";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "dashboard/product/add-product",
     element: <UploadProduct />,
+  },
+  {
+    path: "dashboard/product/product-list",
+    element: <ProductList />,
   },
   {
     path: "user-profile/update-address",

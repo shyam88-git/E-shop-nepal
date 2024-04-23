@@ -43,6 +43,16 @@ export const productApi = rootApi.injectEndpoints({
 
         }),
 
+        getAllProduct: builder.query<GetAllProducts, void>({
+            query: () => ({
+                url: 'products/all',
+                method: 'Get'
+
+            }),
+            providesTags: ['product'],
+
+        }),
+
         uploadProduct: builder.mutation<any, PayloadProduct>({
 
             query: (data) => ({
@@ -58,4 +68,6 @@ export const productApi = rootApi.injectEndpoints({
 })
 
 
-export const { useGetMenCollectionQuery, useGetWomenCollectionQuery, useGetKidsCollectionQuery, useLazyGetSingleProuctQuery, useUploadProductMutation } = productApi;
+export const { useGetMenCollectionQuery, useGetWomenCollectionQuery,
+    useGetKidsCollectionQuery, useLazyGetSingleProuctQuery,
+    useUploadProductMutation, useGetAllProductQuery } = productApi;

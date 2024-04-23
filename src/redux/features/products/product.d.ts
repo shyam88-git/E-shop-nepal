@@ -11,7 +11,7 @@ interface Products {
     price: string,
     qty: string,
     image: string,
-    categry: string;
+    category: string;
     description: string,
     usage: string,
     createdAt: string,
