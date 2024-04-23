@@ -8,8 +8,8 @@ interface Products {
     _id: string | number,
     name: string,
     brand: string,
-    price: number,
-    qty: 1,
+    price: string,
+    qty: string,
     image: string,
     categry: string;
     description: string,
@@ -17,5 +17,18 @@ interface Products {
     createdAt: string,
     updatedAt: string,
     _V: number,
+
+}
+
+interface PayloadProduct {
+
+    name: string;
+    brand: string;
+    qty: string;
+    price: string;
+    usage: string;
+    category: string;
+    description: string;
+    image: string;
 
 }

@@ -7,12 +7,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Sidenavbar = () => {
   const [isSubmMenuOpen, setIsSubMenuOpen] = useState<boolean>(true);
+  const [isProductSubmenuOpen, setIsProductSubmenuOpen] =
+    useState<boolean>(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const toggleSubMenu = () => {
     setIsSubMenuOpen((prevState) => !prevState);
-    console.log(isSubmMenuOpen);
+  };
+
+  const toggleProductSubMenu = () => {
+    setIsProductSubmenuOpen((prevState) => !prevState);
   };
 
   const logoutUser = () => {
@@ -147,7 +152,7 @@ const Sidenavbar = () => {
                 className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
-                onClick={toggleSubMenu}
+                onClick={toggleProductSubMenu}
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -163,7 +168,7 @@ const Sidenavbar = () => {
                 </span>
                 <span className="text-sm rotate-180" id="arrow">
                   <i>
-                    {!isSubmMenuOpen ? (
+                    {isProductSubmenuOpen ? (
                       <MdKeyboardArrowDown size={30} />
                     ) : (
                       <MdKeyboardArrowUp size={30} />
@@ -171,11 +176,11 @@ const Sidenavbar = () => {
                   </i>
                 </span>
               </button>
-              {isSubmMenuOpen === false && (
+              {isProductSubmenuOpen === true && (
                 <ul id="dropdown-example" className=" py-2 space-y-2  ">
                   <li>
                     <Link
-                      to="/dashboard/men"
+                      to="/dashboard/product/add-product"
                       className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       <span className="flex justify-center items-center">

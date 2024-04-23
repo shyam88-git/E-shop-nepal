@@ -11,7 +11,7 @@ import Profile from "@/Profile/Profile";
 import UserProfile from "@/Profile/UserProfile";
 import Login from "@/pages/Auth/Login";
 import UpdateAddress from "@/Profile/UpdateAddress";
-import MainWrapper from "@/pages/Navbar/MainWrapper";
+import UploadProduct from "@/pages/Product/UploadProduct";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +48,11 @@ const router = createBrowserRouter([
   {
     path: "dashboard/user-profile",
     element: <UserProfile />,
+  },
+
+  {
+    path: "dashboard/product/add-product",
+    element: <UploadProduct />,
   },
   {
     path: "user-profile/update-address",

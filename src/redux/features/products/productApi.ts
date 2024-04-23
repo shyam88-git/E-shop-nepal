@@ -41,9 +41,21 @@ export const productApi = rootApi.injectEndpoints({
             providesTags: ['product']
 
 
-        })
+        }),
+
+        uploadProduct: builder.mutation<any, PayloadProduct>({
+
+            query: (data) => ({
+
+                url: 'products/upload',
+                method: 'POST',
+                body: data
+            }),
+
+            invalidatesTags: ['product']
+        }),
     })
 })
 
 
-export const { useGetMenCollectionQuery, useGetWomenCollectionQuery, useGetKidsCollectionQuery, useLazyGetSingleProuctQuery } = productApi;
+export const { useGetMenCollectionQuery, useGetWomenCollectionQuery, useGetKidsCollectionQuery, useLazyGetSingleProuctQuery, useUploadProductMutation } = productApi;
