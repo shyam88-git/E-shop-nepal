@@ -13,6 +13,7 @@ import Login from "@/pages/Auth/Login";
 import UpdateAddress from "@/Profile/UpdateAddress";
 import UploadProduct from "@/pages/Product/UploadProduct";
 import ProductList from "@/pages/Product/ProductList";
+import ProductProfile from "@/pages/Product/ProductProfile";
 
 const router = createBrowserRouter([
   {
@@ -43,10 +44,6 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "dashboard/kid/:id",
-    element: <Profile />,
-  },
-  {
     path: "dashboard/user-profile",
     element: <UserProfile />,
   },
@@ -58,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "dashboard/product/product-list",
     element: <ProductList />,
+  },
+  {
+    path: "dashboard/product/product-list/:id",
+    element: <ProductProfile />,
   },
   {
     path: "user-profile/update-address",

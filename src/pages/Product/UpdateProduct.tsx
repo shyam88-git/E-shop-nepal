@@ -6,7 +6,7 @@ import {
   useLazyGetSingleProuctQuery,
   useUpdateProductMutation,
 } from "@/redux/features/products/productApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Form,
   FormLabel,
@@ -48,6 +48,8 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
   const [getSingleProduct, { data: singleProductData }] =
     useLazyGetSingleProuctQuery();
   const [updateProduct] = useUpdateProductMutation();
+  const [imgs, setImgs] = useState();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (productId) {
@@ -79,6 +81,20 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
     },
   });
 
+  const handleChnage = (e: any) => {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // @ts-ignore
+        form.setValue("image", reader.result);
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   async function onSubmit(values: FormSchemaType) {
     // const {id |string}=singleProductData?.product?._id;
     const postData = {
@@ -89,7 +105,7 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
       category: values?.category,
       description: values?.description,
       usage: values?.usage,
-      image: values?.image,
+      image: values.image,
     };
 
     if (productId) {
@@ -283,17 +299,24 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
                       <FormControl>
                         <Input
                           type="file"
-                          className=""
+                          className="py-20"
                           {...field}
                           placeholder="Enter Image"
+                          onChange={handleChnage}
                         />
                       </FormControl>
+                      {imagePreview && (
+                        <img
+                          src={imagePreview}
+                          alt="Product Preview"
+                          className="mt-2 max-w-xs"
+                        />
+                      )}
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-
               <div className="mt-4">
                 <Button
                   type="submit"

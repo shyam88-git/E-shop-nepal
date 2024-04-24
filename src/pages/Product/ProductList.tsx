@@ -121,7 +121,10 @@ const ProductList = () => {
                     >
                       <MdEdit size={22} color="white" />
                     </span>
-                    <span className=" cursor-pointer  rounded-md px-2 py-1 bg-green-500 hover:bg-green-400">
+                    <span
+                      onClick={() => navigate(`${product?._id}`)}
+                      className=" cursor-pointer  rounded-md px-2 py-1 bg-green-500 hover:bg-green-400"
+                    >
                       <FaRegEye size={24} color="white" />
                     </span>
                     <span
