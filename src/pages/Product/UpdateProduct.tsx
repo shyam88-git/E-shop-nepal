@@ -48,7 +48,6 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
   const [getSingleProduct, { data: singleProductData }] =
     useLazyGetSingleProuctQuery();
   const [updateProduct] = useUpdateProductMutation();
-  const [imgs, setImgs] = useState();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
@@ -299,7 +298,7 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
                       <FormControl>
                         <Input
                           type="file"
-                          className="py-20"
+                          className=""
                           {...field}
                           placeholder="Enter Image"
                           onChange={handleChnage}
@@ -317,12 +316,15 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
                   )}
                 />
               </div>
-              <div className="mt-4">
+              <div className="flex mt-5 items-center gap-3 justify-end">
                 <Button
                   type="submit"
                   className="text-white px-12 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm py-2.5 text-center me-2 mb-2"
                 >
                   Update
+                </Button>
+                <Button onClick={() => onSuccess()} className="bg-red-500">
+                  Cancel
                 </Button>
               </div>
             </form>

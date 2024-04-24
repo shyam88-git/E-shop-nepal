@@ -2,26 +2,7 @@ import BounceLoader from "@/Loader/BoundeLoader";
 import Headernavbar from "@/pages/Navbar/Headernavbar";
 import { useLazyGetSingleProuctQuery } from "@/redux/features/products/productApi";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  SelectItem,
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 
 type Product = {
   _id: string | number;
@@ -38,18 +19,9 @@ type Product = {
   __v: number;
 };
 
-const formSchema = z.object({
-  QtyList: z.string().min(2),
-});
-
-type FormSchemaType = z.infer<typeof formSchema>;
-
 const ProductProfile = () => {
   const [getSingleProduct, { isFetching }] = useLazyGetSingleProuctQuery();
   const [singleProduct, setSingleProduct] = useState<Product | null>(null);
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
-  });
 
   const { id } = useParams();
 

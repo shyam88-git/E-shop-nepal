@@ -4,8 +4,7 @@ import {
   useGetAllProductQuery,
 } from "@/redux/features/products/productApi";
 import { MdDelete, MdEdit } from "react-icons/md";
-import { FaRegEye } from "react-icons/fa";
-
+import { FaFilter, FaRegEye } from "react-icons/fa";
 import MainWrapper from "../Navbar/MainWrapper";
 import BounceLoader from "@/Loader/BoundeLoader";
 import { useNavigate } from "react-router-dom";
@@ -15,13 +14,48 @@ import { showToast } from "@/lib/Toast";
 import Modal from "@/modal/Modal";
 import UpdateProduct from "./UpdateProduct";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const FormSchema = z.object({
+  category: z.string({
+    required_error: "Please select a language.",
+  }),
+});
+
+const categoryList = [
+  { label: "Men's Wear", value: "MEN" },
+  { label: "Women's Wear", value: "WOMEN" },
+  { label: "Kid's Wear", value: "KID" },
+];
+
 const ProductList = () => {
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
   const { data: AllProduct, isFetching } = useGetAllProductQuery();
-  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+  const [deleteProduct] = useDeleteProductMutation();
   const navigate = useNavigate();
   const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
   const [selectedProductId, setSelectedProuctId] = useState<string | null>("");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
   const deleteProductItem = async () => {
     if (selectedProductId) {
@@ -38,6 +72,7 @@ const ProductList = () => {
     setModalOpen(false);
     setSelectedProuctId(null);
   };
+
   return (
     <>
       <ConfirmPopup
@@ -50,7 +85,49 @@ const ProductList = () => {
 
       <MainWrapper>
         <div className="  ml-72 mr-16 mt-24 overflow-x-auto">
-          <div className="flex justify-start items-start mb-4 md:mb-4">
+          <div className="flex justify-between items-center  mb-4 md:mb-4">
+            <div className="flex justify-center items-center gap-8">
+              <Button
+                onClick={() => setFilterOpen(true)}
+                className="w-15 rounded-md "
+              >
+                <FaFilter size={20} color="white" />
+              </Button>
+              {filterOpen && (
+                <Form {...form}>
+                  <form className="w-64 space-y-6">
+                    <FormField
+                      control={form.control}
+                      name="category"
+                      render={({ field }) => (
+                        <FormItem>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a Category" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {categoryList?.map((categry, index) => (
+                                <SelectItem key={index} value={categry?.value}>
+                                  {categry?.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </form>
+                </Form>
+              )}
+            </div>
+
             <Button
               onClick={() => navigate("add-product")}
               className="bg-blue-900 w-full md:w-auto rounded-md"

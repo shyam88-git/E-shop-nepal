@@ -14,6 +14,7 @@ import UpdateAddress from "@/Profile/UpdateAddress";
 import UploadProduct from "@/pages/Product/UploadProduct";
 import ProductList from "@/pages/Product/ProductList";
 import ProductProfile from "@/pages/Product/ProductProfile";
+import { ComboboxForm } from "@/pages/Product/Search";
 
 const router = createBrowserRouter([
   {
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
 
   {
     path: "/login",
-    element: <Login />,
+    element: <ComboboxForm />,
   },
 
   {
