@@ -43,6 +43,16 @@ export const productApi = rootApi.injectEndpoints({
 
 
         }),
+        getSearchedProduct: builder.query<GetAllProducts, string>({
+            query: (category_name) => ({
+
+                url: `products/category/${category_name}`,
+                method: 'GET',
+            }),
+            providesTags: ['product']
+
+
+        }),
 
         getAllProduct: builder.query<GetAllProducts, void>({
             query: () => ({
@@ -65,6 +75,7 @@ export const productApi = rootApi.injectEndpoints({
 
             invalidatesTags: ['product']
         }),
+
 
         updateProduct: builder.mutation<any, { id: string, data: UpdateProduct }>({
 
@@ -94,9 +105,10 @@ export const
         useGetWomenCollectionQuery,
         useGetKidsCollectionQuery,
         useLazyGetSingleProuctQuery,
+        useGetSearchedProductQuery,
         useUploadProductMutation,
         useGetAllProductQuery,
         useUpdateProductMutation,
-        useDeleteProductMutation
+        useDeleteProductMutation,
 
     } = productApi;
