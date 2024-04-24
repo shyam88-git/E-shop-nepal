@@ -12,13 +12,16 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ConfirmPopup from "@/Popup/ConformPoupModal";
 import { showToast } from "@/lib/Toast";
+import Modal from "@/modal/Modal";
+import UpdateProduct from "./UpdateProduct";
 
 const ProductList = () => {
   const { data: AllProduct, isFetching } = useGetAllProductQuery();
   const [deleteProduct, { isLoading }] = useDeleteProductMutation();
   const navigate = useNavigate();
   const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
-  const [selectedProductId, setSelectedProuctId] = useState<string>("");
+  const [selectedProductId, setSelectedProuctId] = useState<string | null>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const deleteProductItem = async () => {
     if (selectedProductId) {
@@ -29,6 +32,11 @@ const ProductList = () => {
         );
       setConfirmOpen(false);
     }
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedProuctId(null);
   };
   return (
     <>
@@ -103,28 +111,44 @@ const ProductList = () => {
                   </td>
 
                   <td className="px-6 py-4">{product?.category}</td>
-                  <td className="py-4 flex justify-center gap-1 items-center">
-                    <Button className="w-12 h-9 cursor-pointer bg-blue-900 hover:bg-blue-800">
-                      <MdEdit size={18} />
-                    </Button>
-                    <Button className="w-11 cursor-pointer h-9 bg-green-500 hover:bg-green-400">
-                      <FaRegEye size={20} />
-                    </Button>
-                    <Button
+                  <td className="py-4 flex mt-7 justify-center gap-1 items-center">
+                    <span
+                      onClick={() => {
+                        setModalOpen(true);
+                        setSelectedProuctId(`${product?._id}`);
+                      }}
+                      className="px-2 py-1 rounded-md cursor-pointer bg-blue-900 hover:bg-blue-800"
+                    >
+                      <MdEdit size={22} color="white" />
+                    </span>
+                    <span className=" cursor-pointer  rounded-md px-2 py-1 bg-green-500 hover:bg-green-400">
+                      <FaRegEye size={24} color="white" />
+                    </span>
+                    <span
                       onClick={() => {
                         setSelectedProuctId(product?._id as string);
                         setConfirmOpen(true);
                       }}
-                      className="w-11 h-9 cursor-pointer bg-red-600 hover:bg-red-500"
+                      className="rounded-md px-2 py-1 cursor-pointer bg-red-600 hover:bg-red-500"
                     >
-                      <MdDelete size={20} />
-                    </Button>
+                      <MdDelete size={24} color="white" />
+                    </span>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <Modal
+          title={selectedProductId ? " Update Product" : "Add Product"}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+        >
+          <UpdateProduct
+            onSuccess={handleModalClose}
+            productId={selectedProductId}
+          />
+        </Modal>
       </MainWrapper>
     </>
   );

@@ -1,4 +1,5 @@
 import { rootApi } from "@/redux/root.api.";
+import { GetAllProducts, GetSingleProduct, PayloadProduct, UpdateProduct } from "./product";
 export const productApi = rootApi.injectEndpoints({
     endpoints: (builder) => ({
         getMenCollection: builder.query<GetAllProducts, void>({
@@ -31,7 +32,7 @@ export const productApi = rootApi.injectEndpoints({
             providesTags: ['product']
         }),
 
-        getSingleProuct: builder.query<GetAllProducts, string | number>({
+        getSingleProuct: builder.query<GetSingleProduct, string | number>({
 
             query: (product_id) => ({
 
@@ -65,7 +66,7 @@ export const productApi = rootApi.injectEndpoints({
             invalidatesTags: ['product']
         }),
 
-        updateProduct: builder.mutation<any, { id: string, data: PayloadProduct }>({
+        updateProduct: builder.mutation<any, { id: string, data: UpdateProduct }>({
 
             query: ({ id, data }) => ({
 
