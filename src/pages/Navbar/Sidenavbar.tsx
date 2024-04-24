@@ -180,18 +180,6 @@ const Sidenavbar = () => {
                 <ul id="dropdown-example" className=" py-2 space-y-2  ">
                   <li>
                     <Link
-                      to="/dashboard/product/add-product"
-                      className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                      <span className="flex justify-center items-center">
-                        {" "}
-                        <TbPointFilled size={20} />
-                        Add Product
-                      </span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       to="/dashboard/product/product-list"
                       className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >

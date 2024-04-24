@@ -64,10 +64,38 @@ export const productApi = rootApi.injectEndpoints({
 
             invalidatesTags: ['product']
         }),
+
+        updateProduct: builder.mutation<any, { id: string, data: PayloadProduct }>({
+
+            query: ({ id, data }) => ({
+
+                url: `products/${id}`,
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ['product']
+        }),
+
+        deleteProduct: builder.mutation<any, string>({
+            query: (id) => ({
+                url: `/products/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['product'],
+        })
     })
 })
 
 
-export const { useGetMenCollectionQuery, useGetWomenCollectionQuery,
-    useGetKidsCollectionQuery, useLazyGetSingleProuctQuery,
-    useUploadProductMutation, useGetAllProductQuery } = productApi;
+export const
+    {
+        useGetMenCollectionQuery,
+        useGetWomenCollectionQuery,
+        useGetKidsCollectionQuery,
+        useLazyGetSingleProuctQuery,
+        useUploadProductMutation,
+        useGetAllProductQuery,
+        useUpdateProductMutation,
+        useDeleteProductMutation
+
+    } = productApi;
