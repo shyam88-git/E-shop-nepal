@@ -3,9 +3,12 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { AuthSlice } from "./features/auth/authSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { rootApi } from "./root.api.";
+import { productSlice } from "./features/products/productSlice";
+
 
 const rootReducer = combineReducers({
     auth: AuthSlice.reducer,
+    product: productSlice.reducer,
     [rootApi.reducerPath]: rootApi.reducer,
 });
 

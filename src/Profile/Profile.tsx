@@ -1,27 +1,12 @@
 import BounceLoader from "@/Loader/BoundeLoader";
 import { useLazyGetSingleProuctQuery } from "@/redux/features/products/productApi";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  SelectItem,
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { addProduct } from "@/redux/features/products/productSlice";
+
 import { Button } from "@/components/ui/button";
 import MainWrapper from "@/pages/Navbar/MainWrapper";
+import { useAppDispatch } from "@/redux/store";
 
 type Product = {
   _id: string | number;
@@ -33,34 +18,15 @@ type Product = {
   category: string;
   description: string;
   usage: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 };
-
-const formSchema = z.object({
-  QtyList: z.string().min(2),
-});
-
-type FormSchemaType = z.infer<typeof formSchema>;
-
-const QtyList = [
-  { label: "1", value: "1" },
-  { label: "2", value: "2" },
-  { label: "3", value: "3" },
-  { label: "4", value: "4" },
-  { label: "5", value: "5" },
-  { label: "6", value: "6" },
-];
 
 const Profile = () => {
   const [getSingleProduct, { isFetching }] = useLazyGetSingleProuctQuery();
   const [singleProduct, setSingleProduct] = useState<Product | null>(null);
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
-  });
+
   const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
@@ -79,7 +45,27 @@ const Profile = () => {
     }
   }, [getSingleProduct, id]);
 
-  console.log("single product", singleProduct);
+  const onSubmit = async () => {
+    if (singleProduct) {
+      const data = {
+        name: singleProduct.name,
+        brand: singleProduct.brand,
+        price: singleProduct.price.toString(),
+        qty: singleProduct.qty.toString(),
+        image: singleProduct.image,
+        category: singleProduct.category,
+        description: singleProduct.description,
+        usage: singleProduct.usage,
+      };
+
+      dispatch(addProduct(data));
+
+      navigate(
+        `/dashboard/${singleProduct.category}/${singleProduct._id}/cart`
+      );
+    }
+  };
+
   return (
     <MainWrapper>
       <div className="max-w-6xl mx-auto  mt-32 px-4 sm:px-6 lg:px-8">
@@ -169,46 +155,7 @@ const Profile = () => {
             </div>
 
             <div className=" flex  items-start gap-4  mt-4">
-              <Form {...form}>
-                <form className="flex items-start gap-14">
-                  <FormField
-                    control={form.control}
-                    name="QtyList"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel></FormLabel>
-                        <FormControl>
-                          <Select defaultValue={field?.value}>
-                            <>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a Qty" />
-                              </SelectTrigger>
-                              <SelectContent className="w-12">
-                                {QtyList.map((qty, idx) => (
-                                  <SelectItem key={idx} value={qty?.value}>
-                                    {qty.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button
-                    onClick={() =>
-                      navigate(
-                        `/dashboard/${singleProduct?.category}/${singleProduct?._id}/cart`
-                      )
-                    }
-                    className="mt-2 bg-blue-900"
-                  >
-                    Add To Card
-                  </Button>
-                </form>
-              </Form>
+              <Button onClick={onSubmit}>Add Button</Button>
             </div>
           </div>
         </div>
