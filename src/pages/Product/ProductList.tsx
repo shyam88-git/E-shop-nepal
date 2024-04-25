@@ -325,7 +325,7 @@ const ProductList = () => {
                                 setSelectedProuctId(product?._id as string);
                                 setConfirmOpen(true);
                               }}
-                              className="rounded-md px-2 py -1 cursor-pointer bg-red-600 hover:bg-red-500"
+                              className="rounded-md px-2 py-1 cursor-pointer bg-red-600 hover:bg-red-500"
                             >
                               <MdDelete size={24} color="white" />
                             </span>

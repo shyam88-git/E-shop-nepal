@@ -1,9 +1,8 @@
 import BounceLoader from "@/Loader/BoundeLoader";
-import Headernavbar from "@/pages/Navbar/Headernavbar";
 import { useLazyGetSingleProuctQuery } from "@/redux/features/products/productApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -60,7 +59,7 @@ const Profile = () => {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   });
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -198,7 +197,16 @@ const Profile = () => {
                       </FormItem>
                     )}
                   />
-                  <Button className="mt-2 bg-blue-900">Add To Card</Button>
+                  <Button
+                    onClick={() =>
+                      navigate(
+                        `/dashboard/${singleProduct?.category}/${singleProduct?._id}/cart`
+                      )
+                    }
+                    className="mt-2 bg-blue-900"
+                  >
+                    Add To Card
+                  </Button>
                 </form>
               </Form>
             </div>

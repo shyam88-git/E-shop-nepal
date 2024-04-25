@@ -14,6 +14,7 @@ import UpdateAddress from "@/Profile/UpdateAddress";
 import UploadProduct from "@/pages/Product/UploadProduct";
 import ProductList from "@/pages/Product/ProductList";
 import ProductProfile from "@/pages/Product/ProductProfile";
+import Cart from "@/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
   {
     path: "dashboard/women/:id",
     element: <Profile />,
+  },
+
+  {
+    path: "dashboard/:category/:id/cart",
+    element: <Cart />,
   },
 
   {

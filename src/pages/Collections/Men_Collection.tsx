@@ -46,7 +46,14 @@ const Men_Collection = () => {
               </div>
 
               <div className="flex mb-3 justify-center gap-4 mt-2">
-                <Button className="bg-blue-900">Add To Card</Button>
+                <Button
+                  className="bg-blue-900"
+                  onClick={() =>
+                    navigate(`/dashboard/${item?.category}/${item?._id}`)
+                  }
+                >
+                  Add To Card
+                </Button>
                 {/* <Button className="bg-blue-900 text-white w-11 rounded-2xl h-10 hover:bg-green-300"> */}
                 <i
                   onClick={() => navigate(`${item?._id}`)}
