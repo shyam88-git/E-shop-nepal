@@ -9,7 +9,7 @@ import MainWrapper from "@/pages/Navbar/MainWrapper";
 import { useAppDispatch } from "@/redux/store";
 
 type Product = {
-  _id: string | number;
+  _id: string;
   name: string;
   brand: string;
   price: number;
@@ -48,6 +48,7 @@ const Profile = () => {
   const onSubmit = async () => {
     if (singleProduct) {
       const data = {
+        _id: singleProduct?._id.toString(),
         name: singleProduct.name,
         brand: singleProduct.brand,
         price: singleProduct.price.toString(),

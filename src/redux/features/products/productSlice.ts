@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface ProductState {
     products: {
-
+        _id: string;
         name: string;
         brand: string;
         price: number | string;
@@ -18,7 +18,7 @@ interface ProductState {
 const initialState: ProductState = {
     products: [
         {
-
+            _id: "102",
             name: "product",
             brand: "men",
             price: 2,
@@ -44,9 +44,15 @@ export const productSlice = createSlice({
             state.products.push(product);
         },
 
+        removeCart: (state, action: PayloadAction<string>) => {
+
+            state.products = state.products.filter(product => product?._id !== action.payload)
+
+        }
+
 
 
     },
 });
 
-export const { addProduct } = productSlice.actions;
+export const { addProduct, removeCart } = productSlice.actions;

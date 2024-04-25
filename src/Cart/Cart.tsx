@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import MainWrapper from "@/pages/Navbar/MainWrapper";
-import { useAppSelector } from "@/redux/store";
+import { removeCart } from "@/redux/features/products/productSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { MdDelete } from "react-icons/md";
 
 const Cart = () => {
   const products = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
   return (
     <MainWrapper>
@@ -35,9 +37,9 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {products?.products?.map((product, index) => (
+                {products?.products?.map((product) => (
                   <tr
-                    key={index}
+                    key={product?._id}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td
@@ -53,7 +55,10 @@ const Cart = () => {
                     <td className="px-6 py-4">{product.price}</td>
                     <td className="px-6 py-4">{product.qty}</td>
                     <td className="px-6 py-4">
-                      <Button className="bg-red-600 w-12">
+                      <Button
+                        onClick={() => dispatch(removeCart(`${product?._id}`))}
+                        className="bg-red-600 w-12"
+                      >
                         <MdDelete size={30} />
                       </Button>
                     </td>
