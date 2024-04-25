@@ -48,13 +48,48 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
   const [getSingleProduct, { data: singleProductData }] =
     useLazyGetSingleProuctQuery();
   const [updateProduct] = useUpdateProductMutation();
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [file, setFile] = useState<string>("");
+  const [image, setImage] = useState<string>("");
 
   useEffect(() => {
     if (productId) {
       getSingleProduct(productId);
     }
   }, [productId, singleProductData]);
+
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      const base64 = await convertBase64(file);
+      console.log(base64);
+      setFile(base64);
+    }
+  };
+
+  const convertBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result as string);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const convertBase64ToImage = (
+    base64String: string
+  ): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = (error) => reject(error);
+      img.src = base64String;
+    });
+  };
 
   useEffect(() => {
     if (singleProductData) {
@@ -65,7 +100,23 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
       form.setValue("description", singleProductData?.product?.description);
       form.setValue("usage", singleProductData?.product?.usage);
       form.setValue("category", singleProductData?.product?.category);
-      // form.setValue("image", singleProductData?.product?.image);
+      const imgUrl = singleProductData?.product?.image as string;
+      if (imgUrl) {
+        convertBase64ToImage(imgUrl)
+          .then((img) => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx?.drawImage(img, 0, 0);
+            const base64String = canvas.toDataURL("image/png");
+            form.setValue("image", base64String);
+            setFile(base64String);
+          })
+          .catch((error) => {
+            console.error("Error converting image URL to base64:", error);
+          });
+      }
     }
   }, [singleProductData, productId]);
 
@@ -80,20 +131,6 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
     },
   });
 
-  const handleChnage = (e: any) => {
-    console.log(e.target.files);
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        // @ts-ignore
-        form.setValue("image", reader.result);
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   async function onSubmit(values: FormSchemaType) {
     // const {id |string}=singleProductData?.product?._id;
     const postData = {
@@ -104,7 +141,7 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
       category: values?.category,
       description: values?.description,
       usage: values?.usage,
-      image: values.image,
+      image: file,
     };
 
     if (productId) {
@@ -290,7 +327,7 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
                 <FormField
                   control={form.control}
                   name="image"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel className="text-sm font-medium text-slate-300">
                         Image
@@ -298,19 +335,12 @@ const UpdateProduct = ({ onSuccess, productId }: PropsI) => {
                       <FormControl>
                         <Input
                           type="file"
-                          className=""
-                          {...field}
                           placeholder="Enter Image"
-                          onChange={handleChnage}
+                          onChange={(e) => uploadImage(e)}
                         />
                       </FormControl>
-                      {imagePreview && (
-                        <img
-                          src={imagePreview}
-                          alt="Product Preview"
-                          className="mt-2 max-w-xs"
-                        />
-                      )}
+                      <img src={file} alt="" />
+
                       <FormMessage />
                     </FormItem>
                   )}

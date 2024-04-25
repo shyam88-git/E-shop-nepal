@@ -75,6 +75,7 @@ const UpdateAddress = () => {
         navigate("/dashboard/user-profile");
       })
       .catch((err) => {
+        console.log(err);
         showToast("Error while updating Address", {
           type: "error",
         });

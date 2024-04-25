@@ -84,3 +84,50 @@
     margin-top: 60px;
     height: 300px;
   }
+
+
+  .App {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+  }
+  
+  
+  .paginationBttns {
+    width: 80%;
+    height: 40px;
+    margin-top: 30px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .paginationBttns a {
+    padding: 12px;
+    margin: 8px;
+
+    border-radius: 5px;
+    border: 1px solid #2b2eff;
+    color: #2b2eff;
+    cursor: pointer;
+  }
+  
+  .paginationBttns a:hover {
+    color: white;
+    background-color: #2b2eff;
+  }
+  
+  .paginationActive a {
+    color: black;
+    background-color:white;
+  }
+  
+  .paginationDisabled a {
+    color: grey;
+    background-color: grey;
+  }
+  
+  
+  

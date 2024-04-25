@@ -9,7 +9,7 @@ import { FaFilter, FaRegEye } from "react-icons/fa";
 import MainWrapper from "../Navbar/MainWrapper";
 import BounceLoader from "@/Loader/BoundeLoader";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmPopup from "@/Popup/ConformPoupModal";
 import { showToast } from "@/lib/Toast";
 import Modal from "@/modal/Modal";
@@ -18,6 +18,7 @@ import UpdateProduct from "./UpdateProduct";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+// import "./App.css";
 
 import {
   Form,
@@ -33,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ReactPaginate from "react-paginate";
 
 const FormSchema = z.object({
   category: z.string({
@@ -46,6 +48,20 @@ const categoryList = [
   { label: "Kid's Wear", value: "KID" },
 ];
 
+interface ProductType {
+  _id: string;
+  name: string;
+  brand: string;
+  price: number;
+  qty: number;
+  image: string;
+  category: string;
+  description: string;
+  usage: string;
+  createdAt: string;
+  updatedAt: string;
+  _V: number;
+}
 const ProductList = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,9 +76,42 @@ const ProductList = () => {
   const [selectedCategories, setSelectedCategories] = useState<string | null>(
     ""
   );
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const productPerPage = 5;
+  const pagesVisited = pageNumber * productPerPage;
+
+  const pageCount = Math.ceil(products.length / productPerPage);
+  const changePage = ({ selected }: { selected: number }) => {
+    setPageNumber(selected);
+  };
+
   const { data, isLoading } = useGetSearchedProductQuery(
     selectedCategories as string
   );
+
+  useEffect(() => {
+    if (AllProduct) {
+      const products = AllProduct?.products?.map((product) => ({
+        _id: product?._id,
+        name: product?.name,
+        price: product?.price,
+        brand: product?.brand,
+        qty: product?.qty,
+        image: product?.image,
+        category: product?.category,
+        description: product?.description,
+        usage: product?.usage,
+        createdAt: product?.createdAt,
+        updatedAt: product?.updatedAt,
+        _v: product?._V,
+      }));
+      //@ts-ignore
+      setProducts(products);
+
+      // setAllProducts(product);
+    }
+  }, [AllProduct]);
 
   const deleteProductItem = async () => {
     if (selectedProductId) {
@@ -234,57 +283,72 @@ const ProductList = () => {
                       </td>
                     </tr>
                   ))
-                : AllProduct?.products?.map((product, index) => (
-                    <tr
-                      key={product._id}
-                      className={`${
-                        index % 2 === 0 ? "bg-white" : "bg-gray-200"
-                      } dark:bg-gray-800`}
-                    >
-                      <td className="px-6 py-4">{index + 1}</td>
-                      <td className="px-6 py-4">{product?.name}</td>
-                      <td className="px-6 py-4">{product?.brand}</td>
-                      <td className="px-6 py-4">{product?.price}</td>
-                      <td className="px-6 py-4">{product?.qty}</td>
-                      <td className="px-2 py-4">
-                        <img
-                          className="w-34 h-24"
-                          src={product?.image}
-                          alt=""
-                        />
-                      </td>
-
-                      <td className="px-6 py-4">{product?.category}</td>
-                      <td className="py-4 flex mt-7 justify-center gap-1 items-center">
-                        <span
-                          onClick={() => {
-                            setModalOpen(true);
-                            setSelectedProuctId(`${product?._id}`);
-                          }}
-                          className="px-2 py-1 rounded-md cursor-pointer bg-blue-900 hover:bg-blue-800"
+                : products
+                    ?.slice(pagesVisited, pagesVisited + productPerPage)
+                    .map((product, index) => {
+                      return (
+                        <tr
+                          key={product?._id}
+                          className={`${
+                            index % 2 === 0 ? "bg-white" : "bg-gray-200"
+                          } dark:bg-gray-800`}
                         >
-                          <MdEdit size={22} color="white" />
-                        </span>
-                        <span
-                          onClick={() => navigate(`${product?._id}`)}
-                          className=" cursor-pointer  rounded-md px-2 py-1 bg-green-500 hover:bg-green-400"
-                        >
-                          <FaRegEye size={24} color="white" />
-                        </span>
-                        <span
-                          onClick={() => {
-                            setSelectedProuctId(product?._id as string);
-                            setConfirmOpen(true);
-                          }}
-                          className="rounded-md px-2 py-1 cursor-pointer bg-red-600 hover:bg-red-500"
-                        >
-                          <MdDelete size={24} color="white" />
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                          {" "}
+                          <td className="px-6 py-4">{index + 1}</td>
+                          <td className="px-6 py-4">{product.name}</td>
+                          <td className="px-6 py-4">{product?.brand}</td>
+                          <td className="px-6 py-4">{product?.price}</td>
+                          <td className="px-6 py-4">{product?.qty}</td>
+                          <td className="px-2 py-4">
+                            <img
+                              className="w-34 h-24"
+                              src={product?.image}
+                              alt=""
+                            />
+                          </td>
+                          <td className="px-6 py-4">{product?.category}</td>
+                          <td className="py-4 flex mt-7 justify-center gap-1 items-center">
+                            <span
+                              onClick={() => {
+                                setModalOpen(true);
+                                setSelectedProuctId(`${product?._id}`);
+                              }}
+                              className="px-2 py-1 rounded-md cursor-pointer bg-blue-900 hover:bg-blue-800"
+                            >
+                              <MdEdit size={22} color="white" />
+                            </span>
+                            <span
+                              onClick={() => navigate(`${product?._id}`)}
+                              className=" cursor-pointer  rounded-md px-2 py-1 bg-green-500 hover:bg-green-400"
+                            >
+                              <FaRegEye size={24} color="white" />
+                            </span>
+                            <span
+                              onClick={() => {
+                                setSelectedProuctId(product?._id as string);
+                                setConfirmOpen(true);
+                              }}
+                              className="rounded-md px-2 py -1 cursor-pointer bg-red-600 hover:bg-red-500"
+                            >
+                              <MdDelete size={24} color="white" />
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
             </tbody>
           </table>
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
         </div>
         <Modal
           title={selectedProductId ? " Update Product" : "Add Product"}
