@@ -3,6 +3,7 @@ import Headernavbar from "@/pages/Navbar/Headernavbar";
 import { useLazyGetSingleProuctQuery } from "@/redux/features/products/productApi";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import MainWrapper from "../Navbar/MainWrapper";
 
 type Product = {
   _id: string | number;
@@ -44,15 +45,14 @@ const ProductProfile = () => {
 
   console.log("single product", singleProduct);
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 py-8">
-      <Headernavbar />
+    <MainWrapper>
       <div className="max-w-6xl mx-auto  mt-32 px-4 sm:px-6 lg:px-8">
         {isFetching && (
           <div className="flex justify-center items-center mx-auto  px-14">
             <BounceLoader />
           </div>
         )}
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col px-32 md:flex-row gap-4">
           <div className="md:flex-1 px-4">
             <div className="h-[350px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
@@ -77,7 +77,7 @@ const ProductProfile = () => {
                 <span className="font-bold text-gray-700 dark:text-gray-300">
                   Price:
                 </span>
-                <span className="text-gray-600 dark:text-gray-300">
+                <span className="text-gray-600 px-2 dark:text-gray-300">
                   Rs.{singleProduct?.price}
                 </span>
               </div>
@@ -85,8 +85,8 @@ const ProductProfile = () => {
                 <span className="font-bold text-gray-700 dark:text-gray-300">
                   Availability
                 </span>
-                <span className="text-gray-600 dark:text-gray-300">
-                  In Stock
+                <span className="text-gray-600 px-2 dark:text-gray-300">
+                  : In Stock
                 </span>
               </div>
             </div>
@@ -115,7 +115,7 @@ const ProductProfile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </MainWrapper>
   );
 };
 export default ProductProfile;

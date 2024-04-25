@@ -18,7 +18,6 @@ import UpdateProduct from "./UpdateProduct";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// import "./App.css";
 
 import {
   Form,
@@ -108,8 +107,6 @@ const ProductList = () => {
       }));
       //@ts-ignore
       setProducts(products);
-
-      // setAllProducts(product);
     }
   }, [AllProduct]);
 

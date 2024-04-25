@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import MainWrapper from "@/pages/Navbar/MainWrapper";
 
 type Product = {
   _id: string | number;
@@ -81,15 +82,14 @@ const Profile = () => {
 
   console.log("single product", singleProduct);
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 py-8">
-      <Headernavbar />
+    <MainWrapper>
       <div className="max-w-6xl mx-auto  mt-32 px-4 sm:px-6 lg:px-8">
         {isFetching && (
           <div className="flex justify-center items-center mx-auto  px-14">
             <BounceLoader />
           </div>
         )}
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col md:flex-row px-52 gap-4">
           <div className="md:flex-1 px-4">
             <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
@@ -205,7 +205,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </MainWrapper>
   );
 };
 export default Profile;

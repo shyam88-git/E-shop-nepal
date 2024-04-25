@@ -121,7 +121,7 @@
   
   .paginationActive a {
     color: black;
-    background-color:white;
+    background-color:#f3eded;
   }
   
   .paginationDisabled a {
