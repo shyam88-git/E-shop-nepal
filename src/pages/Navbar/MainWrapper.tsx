@@ -6,7 +6,9 @@ interface PropsI {
 const MainWrapper = ({ children }: PropsI) => {
   return (
     <div>
-      <Headernavbar />
+      <div>
+        <Headernavbar />
+      </div>
       {children}
 
       <Sidenavbar />

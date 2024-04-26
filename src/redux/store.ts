@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore, createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { AuthSlice } from "./features/auth/authSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,9 @@ const rootReducer = combineReducers({
     product: productSlice.reducer,
     [rootApi.reducerPath]: rootApi.reducer,
 });
+
+
+
 
 export const store = configureStore({
     reducer: rootReducer,

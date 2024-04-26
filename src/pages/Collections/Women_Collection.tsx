@@ -22,7 +22,7 @@ const Women_Collection = () => {
           {productData?.products.map((item, index) => (
             <div
               key={index}
-              className="w-full mt-4 p-2  bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+              className="w-full mt-4 p-2  bg-white rounded-xl   duration-300 shadow-lg hover:shadow-2xl"
             >
               <img
                 className="h-52 w-full object-cover rounded-xl"

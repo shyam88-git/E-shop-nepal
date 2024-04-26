@@ -42,6 +42,7 @@ export const productSlice = createSlice({
                 ...action.payload,
             };
             state.products.push(product);
+            // localStorage.setItem('products', action.payload);
         },
 
         removeCart: (state, action: PayloadAction<string>) => {
